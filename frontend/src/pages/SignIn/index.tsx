@@ -6,8 +6,8 @@ import * as Yup from 'yup';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import { useAuth } from '../../hooks/Auth';
-import { useToast } from '../../hooks/Toast';
+import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 import logoImg from '../../assets/logo.svg';
 
 import Input from '../../components/Input';
@@ -50,7 +50,11 @@ const SignIn: React.FC = () => {
                 formRef.current?.setErrors(errors);
             }
 
-            addToast();
+            addToast({
+                type: 'success', 
+                title: 'Erro na autenticação', 
+                description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
+            });
         }   
     }, [signIn, addToast]);
 
