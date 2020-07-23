@@ -1,10 +1,17 @@
 import React from 'react';
+import { Image } from 'react-native';
 
-import { Container } from './styles';
+import { Container, Title } from './styles';
+
+import logoImg from '../../assets/logo.png';
 
 const SignIn: React.FC = () => {
     return (
-        <Container />
+        <Container>
+            <Image source={logoImg} />
+
+            <Title>Faça seu logon</Title>
+        </Container>
     );
 };
 
