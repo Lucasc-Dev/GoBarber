@@ -1,4 +1,5 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
+import React, { createContext, useCallback, useState, useContext, useEffect } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import api from '../services/api';
 
 interface AuthState {
@@ -20,30 +21,37 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({children}) => {
-    const [data, setData] = useState<AuthState>(() => {
-        const token = localStorage.getItem('@GoBarber:token');
-        const user = localStorage.getItem('@GoBarber:user');
+    const [data, setData] = useState<AuthState>({} as AuthState);
 
-        if (token && user) {
-            return { token, user: JSON.parse(user) };
+    useEffect(() => {
+        async function loadStoragedData(): Promise<void> {
+            const [token, user] = await AsyncStorage.multiGet([
+                '@GoBarber:token', 
+                '@GoBarber:user',
+            ]);
+
+            if ( token[1] && user[1] ) {
+                setData({ token: token[1], user: JSON.parse(user[1]) });
+            }
         }
-        return {} as AuthState;
-    });
+        loadStoragedData();
+    }, []);
 
     const signIn = useCallback(async ({ email, password }) => {
         const response = await api.post('sessions', { email, password });
 
         const { token, user } = response.data;
 
-        localStorage.setItem('@GoBarber:token', token);
-        localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+        await AsyncStorage.multiSet([
+            ['@GoBarber:token', token], 
+            ['@GoBarber:user', JSON.stringify(user)],
+        ]);
 
         setData({ token, user });
     }, []);
 
-    const signOut = useCallback(() => {
-        localStorage.removeItem('@GoBarber:token');
-        localStorage.removeItem('@GoBarber:user');
+    const signOut = useCallback(async () => {
+        await AsyncStorage.multiRemove(['@GoBarber:token', '@GoBarber:user']);
 
         setData({} as AuthState);
     }, []);
