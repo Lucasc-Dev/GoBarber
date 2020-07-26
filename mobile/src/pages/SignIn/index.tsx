@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Image, View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { Image, View, ScrollView, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
@@ -22,6 +22,7 @@ import {
 const SignIn: React.FC = () => {
     const navigation = useNavigation();
     const formRef = useRef<FormHandles>(null);
+    const passwordInputRef = useRef<TextInput>(null);
 
     const handleSignIn = useCallback((data: object) => {
         console.log(data);
@@ -46,18 +47,39 @@ const SignIn: React.FC = () => {
                         </View>
 
                         <Form ref={formRef} onSubmit={handleSignIn}>
-                            <Input name="email" icon="mail" placeholder="E-mail" />
+                            <Input 
+                                autoCorrect={false}
+                                autoCapitalize="none"
+                                keyboardType="email-address"
+                                name="email" 
+                                icon="mail" 
+                                placeholder="E-mail" 
+                                returnKeyType="next"
+                                onSubmitEditing={() => {
+                                    passwordInputRef.current?.focus();
+                                }}
+                            />
 
-                            <Input name="password" icon="lock" placeholder="Senha" />
-                        </Form>
-
-                            <Button 
-                                onPress={() => { 
+                            <Input 
+                                ref={passwordInputRef}
+                                name="password" 
+                                icon="lock" 
+                                placeholder="Senha" 
+                                secureTextEntry
+                                returnKeyType="send"
+                                onSubmitEditing={() => { 
                                     formRef.current?.submitForm();
                                 }}
-                            >
-                                Entrar
-                            </Button>
+                            />
+                        </Form>
+
+                        <Button 
+                            onPress={() => { 
+                                formRef.current?.submitForm();
+                            }}
+                        >
+                            Entrar
+                        </Button>
 
                         <ForgotPassword onPress={() => {}}>
                             <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
