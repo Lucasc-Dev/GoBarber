@@ -1,4 +1,3 @@
-import { getRepository } from "typeorm";
 import path from 'path';
 import fs from 'fs';
 
