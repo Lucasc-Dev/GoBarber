@@ -1,4 +1,3 @@
-import { getRepository } from "typeorm";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import authConfig from '@config/auth';
@@ -7,6 +6,7 @@ import IUsersRepository from '../repositories/IUsersRepository';
 import AppError from '@shared/errors/AppError';
 
 import User from "../infra/typeorm/entities/User";
+import { injectable, inject } from "tsyringe";
 
 interface Request {
     email: string;
@@ -18,8 +18,12 @@ interface Response {
     token: string;
 }
 
+@injectable()
 class AuthenticateUserService {
-    constructor(private usersRepository: IUsersRepository) {}
+    constructor(
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository,
+    ) {}
 
     public async execute({ email, password }: Request): Promise<Response> {
         const user = await this.usersRepository.findByEmail(email);
