@@ -1,7 +1,7 @@
 import { uuid } from 'uuidv4';
 
 import ICreateUserDto from '@modules/users/dtos/ICreateUserDTO';
-import IFindAllProvidersDTO from '@modules/appointments/dtos/IFindAllProvidersDTO';
+import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
