@@ -8,7 +8,6 @@ interface tokenPayload {
     iat: number;
     exp: number;
     sub: string;
-
 }
 
 export default function ensureAuthenticated(req: Request, res: Response, next: NextFunction): void {
