@@ -1,8 +1,6 @@
 import { injectable, inject } from "tsyringe";
 import { getHours, isAfter } from 'date-fns';
 
-import AppError from '@shared/errors/AppError';
-
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
 interface Request{
