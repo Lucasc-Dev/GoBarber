@@ -5,7 +5,7 @@ import ICreateNotificationDto from '@modules/notifications/dtos/ICreateNotificat
 
 import Notification from '../../infra/typeorm/schemas/notification';
 
-class NotificationsRepository implements INotificationsRepository {
+class FakeNotificationsRepository implements INotificationsRepository {
     private notifications: Notification[] = [];
 
     public async create({ content, recipient_id }: ICreateNotificationDto): Promise<Notification> {
@@ -19,4 +19,4 @@ class NotificationsRepository implements INotificationsRepository {
     }
 }
 
-export default NotificationsRepository;
+export default FakeNotificationsRepository;
