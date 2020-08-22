@@ -31,14 +31,9 @@ export default class DiskStorageProvider implements IStorageProvider {
     }
 
     public async deleteFile(file: string): Promise<void> {
-        const filePath = path.resolve(uploadConfig.uploadsFolder, file);
-
-        try {
-            await fs.promises.stat(filePath);
-        } catch {
-            return;
-        }
-
-        await fs.promises.unlink(filePath);
+        await this.client.deleteObject({
+            Bucket: 'app-gobarber-2',
+            Key: file,
+        }).promise();
     }
 }
