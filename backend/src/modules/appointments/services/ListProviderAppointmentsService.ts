@@ -36,8 +36,6 @@ class ListProviderAppointmentsService {
             });
 
             await this.cacheProvider.save(cacheKey, appointments);
-
-            console.log('buscou')
         }
 
         return appointments;
