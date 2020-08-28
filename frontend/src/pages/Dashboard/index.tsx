@@ -1,15 +1,27 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { isToday, format, parseISO } from 'date-fns';
-import { isAfter } from 'date-fns/esm';
-import ptBR from 'date-fns/locale/pt-BR';
 import { FiPower, FiClock } from 'react-icons/fi';
+import { useAuth } from '../../hooks/auth';
+import { isAfter } from 'date-fns/esm';
+import { Link } from 'react-router-dom';
+import ptBR from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
 import api from '../../services/api';
 
-import { useAuth } from '../../hooks/auth';
+import 'react-day-picker/lib/style.css';
 
-import { Container, Header, HeaderContent, Profile, Content, Schedule, NextAppointment, Calendar, Appointment, Section } from './styles';
+import { 
+    Container, 
+    Header, 
+    HeaderContent, 
+    Profile, 
+    Content, 
+    Schedule, 
+    NextAppointment, 
+    Calendar, 
+    Appointment, 
+    Section,
+} from './styles';
 
 import logoImg from '../../assets/logo.svg';
 
@@ -126,7 +138,9 @@ const Dashboard: React.FC = () => {
                         <img src={user.avatar_url} alt={user.name} />
                         <div>
                             <span>Bem-vindo,</span>
-                            <strong>{user.name}</strong>
+                            <Link to="/profile">
+                                <strong>{user.name}</strong>
+                            </Link>
                         </div>
                     </Profile>
 
