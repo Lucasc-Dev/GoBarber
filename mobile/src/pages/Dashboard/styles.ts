@@ -9,14 +9,13 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-    width: 100%;
     padding: 24px;
     padding-top: ${getStatusBarHeight()}px;
     background: #28262e;
 
     flex-direction: row;
     justify-content: space-between;
-    align-self: center;
+    align-items: center;
 `;
 
 export const HeaderTitle = styled.Text`
@@ -49,7 +48,7 @@ export const ProvidersListTitle = styled.Text`
     font-size: 24px;
     margin-bottom: 24px;
     color: #f4ede8;
-    font-family: 'RobotoSlab-Medium';
+    font-family: 'RobotoSlab-Medium'
 `;
 
 export const ProviderContainer = styled(RectButton)`
