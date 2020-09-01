@@ -7,6 +7,7 @@ import {
     TextInput,
     Alert, 
 } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 import { useAuth } from '../../hooks/auth';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
@@ -93,7 +94,7 @@ const Profile: React.FC = () => {
             }
 
             const response = await api.put('/profile', formData);
-
+            console.log(response);
             updateUser(response.data);
 
             Alert.alert('Perfil atualiazdo com sucesso');
@@ -115,6 +116,37 @@ const Profile: React.FC = () => {
         }   
     }, [navigation, updateUser]);
 
+    const handleUpdateAvatar = useCallback(() => {
+        ImagePicker.showImagePicker({
+            title: 'Selecione um avatar',
+            cancelButtonTitle: 'Cancelar',
+            takePhotoButtonTitle: 'Usar câmera',
+            chooseFromLibraryButtonTitle: 'Escolher da galeria',
+        }, response => {
+            if (response.didCancel) {
+                return;
+            }
+
+            if (response.error) {
+                Alert.alert('Erro ao atualizar seu avatar.');
+                console.log(response.error);
+                return;
+            }
+
+            const data = new FormData();
+
+            data.append('avatar', {
+                type: 'image/jpeg',
+                name: `${user.id}.jpg`,
+                uri: response.uri,
+            });
+
+            api.patch('/users/avatar', data).then((apiResponse) => {
+                updateUser(apiResponse.data);
+            });
+        });
+    }, [updateUser, user.id]);
+
     const handleGoBack = useCallback(() => {
         navigation.goBack();
     }, [navigation]);
@@ -134,7 +166,7 @@ const Profile: React.FC = () => {
                             <Icon name="chevron-left" size={24} color="#999591" />
                         </BackButton>
 
-                        <UserAvatarButton onPress={() => {}}>
+                        <UserAvatarButton onPress={handleUpdateAvatar}>
                             <UserAvatar source={{ uri: user.avatar_url }} />
                         </UserAvatarButton>
 
