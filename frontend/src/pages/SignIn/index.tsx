@@ -45,6 +45,7 @@ const SignIn: React.FC = () => {
                 email: data.email,
                 password: data.password,
             });
+            console.log(1)
 
             history.push('/dashboard');
         } catch (err) {
