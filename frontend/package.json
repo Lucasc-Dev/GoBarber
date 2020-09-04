@@ -60,5 +60,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/react-hooks": "^3.4.1",
+    "axios-mock-adapter": "^1.18.2",
+    "react-test-renderer": "^16.13.1"
   }
 }
