@@ -44,7 +44,7 @@ export const AuthProvider: React.FC = ({children}) => {
         const response = await api.post('sessions', { email, password });
 
         const { token, user } = response.data;
-
+        
         localStorage.setItem('@GoBarber:token', token);
         localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
@@ -77,10 +77,6 @@ export const AuthProvider: React.FC = ({children}) => {
 
 export function useAuth(): AuthContextData {
     const context = useContext(AuthContext);
-
-    if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
 
     return context;
 }
