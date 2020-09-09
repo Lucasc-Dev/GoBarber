@@ -31,9 +31,7 @@ class UpdateUserAvatarService {
             await this.storageProvider.deleteFile(user.avatar);
         }
 
-        const avatarFilenameWithoutSpaces = avatarFilename.replace(' ', '-');        
-
-        const filename = await this.storageProvider.saveFile(avatarFilenameWithoutSpaces);
+        const filename = await this.storageProvider.saveFile(avatarFilename);
 
         user.avatar = filename;
 
