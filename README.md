@@ -2,9 +2,7 @@
 
 GoBarber is a Web and Mobile application for management and interaction between the barbershop providers and their custormers.
 
-Technologies:
-
-# 🚀 Technologies:
+## 🚀 Technologies:
 - Typescript
 - Node.JS
 - ReactJS
