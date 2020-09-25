@@ -1,5 +1,8 @@
-# ![logo](./images/GoBarber.png)
-# 📃GoBarber, the best way to schedule your service!
+<h2 align="center">
+  <img alt="GoBarber" src="./images/GoBarber.png" height="150px"/>
+  <br/>
+  GoBarber - the best way to schedule your haircut!
+</h1>
 
 GoBarber is a Web and Mobile application for management and interaction between the barbershop providers and their custormers.
 
@@ -12,3 +15,4 @@ GoBarber is a Web and Mobile application for management and interaction between 
 - MongoDB
 - Redis
 - Styled components
+- And more...
